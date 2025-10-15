@@ -1,0 +1,362 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1"/>
+<title>Edurius — Clickable Lo-fi v0 (15 screens)</title>
+<style>
+:root { --bg:#0b1016; --panel:#121922; --ink:#e6edf3; --muted:#9fb0c3; --accent:#61a0ff; --accent-2:#52d1a8; --border:#233041;}
+*{box-sizing:border-box} body{margin:0;font-family:Inter,system-ui,Arial,sans-serif;background:#0b1016;color:var(--ink);}
+header{position:sticky;top:0;z-index:10;display:flex;align-items:center;justify-content:space-between;padding:12px 16px;background:#0d131b;border-bottom:1px solid var(--border)}
+header .title{font-weight:700}
+header .navbtns button{background:transparent;border:1px solid var(--border);color:var(--ink);padding:8px 10px;border-radius:8px;margin-left:8px;cursor:pointer}
+.wrap{display:flex;min-height:calc(100vh - 54px)}
+aside{width:300px;border-right:1px solid var(--border);background:#0d141c}
+aside h3{margin:16px;font-size:14px;color:var(--muted);text-transform:uppercase;letter-spacing:.08em}
+aside ul{list-style:none;margin:0;padding:0}
+aside li{padding:10px 16px;border-bottom:1px solid var(--border);cursor:pointer;color:var(--ink)}
+aside li.active{background:#121a25;color:#fff}
+main{flex:1;padding:24px}
+.screen{display:none;max-width:980px;margin:0 auto}
+.screen.active{display:block;animation:fade .2s ease}
+@keyframes fade{from{opacity:.6;transform:translateY(2px)} to{opacity:1;transform:none}}
+h1,h2,h3{margin:0 0 12px}
+.hero{padding:24px;border:1px dashed var(--border);border-radius:12px;margin-bottom:16px;background:#101820}
+.cta-row button{margin-right:8px}
+.three-cols{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin:12px 0}
+.card{border:1px dashed var(--border);padding:12px;border-radius:10px;background:#0f1720}
+.grid-3{display:grid;grid-template-columns:repeat(3,1fr);gap:14px}
+.plan{border:1px dashed var(--border);padding:14px;border-radius:12px;background:#101820}
+.plan.featured{outline:2px solid var(--accent)}
+.plan .price{font-size:20px;font-weight:700;margin:6px 0 10px}
+.promo{background:#0a223a;border:1px solid #113a63;color:#bfe0ff;padding:6px 8px;border-radius:6px;margin-bottom:8px;font-size:12px}
+.note{opacity:.85;font-size:13px}
+.note.small{font-size:12px;opacity:.8}
+.form{border:1px dashed var(--border);padding:14px;border-radius:12px;background:#101820;margin-bottom:10px}
+.form.two{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+.form .field{display:flex;flex-direction:column;gap:6px}
+.form .field input,.form .field select{padding:10px;border-radius:8px;border:1px solid var(--border);background:#0c1219;color:var(--ink)}
+.stripe{padding:24px;border:1px dashed var(--border);border-radius:8px;background:#0b1118;text-align:center;color:#7ea1c4}
+.actions{margin-top:8px}
+button.primary{background:var(--accent);border:none;color:#071019;padding:10px 14px;border-radius:8px;cursor:pointer;font-weight:700}
+button.secondary{background:transparent;border:1px solid var(--accent);color:var(--accent);padding:9px 14px;border-radius:8px;cursor:pointer}
+button.ghost{background:transparent;border:1px dashed var(--border);color:var(--ink);padding:9px 14px;border-radius:8px;cursor:pointer}
+.aside{border:1px dashed var(--border);padding:12px;border-radius:8px;background:#0f1720;margin-top:10px}
+.tiles{display:grid;grid-template-columns:repeat(4,1fr);gap:12px;margin-bottom:12px}
+.tile{border:1px dashed var(--border);padding:12px;border-radius:8px;background:#101820}
+.alerts .alert{padding:10px;border-radius:8px;margin:6px 0}
+.alert.info{background:#0b2437;border:1px solid #154667}
+.alert.neutral{background:#0f1720;border:1px dashed var(--border)}
+.toolbar{display:flex;justify-content:space-between;align-items:center;margin:8px 0}
+.table{width:100%;border-collapse:collapse}
+.table th,.table td{border:1px dashed var(--border);padding:8px;text-align:left}
+.viz .bar{display:flex;justify-content:space-between;border:1px dashed var(--border);border-radius:8px;padding:10px;background:#0f1720;margin-bottom:10px}
+.gap{font-size:22px;font-weight:700;margin-bottom:8px}
+.checklist{display:grid;gap:8px;border:1px dashed var(--border);padding:12px;border-radius:8px;background:#101820;margin:8px 0}
+.meters{display:grid;grid-template-columns:1fr;gap:12px}
+.meter .bar{height:8px;background:#142130;border-radius:6px;overflow:hidden;border:1px solid var(--border)}
+.meter .bar span{display:block;height:100%;background:linear-gradient(90deg,var(--accent),var(--accent-2))}
+.tabs{display:flex;gap:8px;margin-bottom:8px}
+.tab{background:#0e1620;border:1px dashed var(--border);color:#var(--ink);padding:8px 10px;border-radius:8px;cursor:pointer}
+.tab.active{outline:2px solid var(--accent)}
+.muted{color:#9fb0c3}
+footer{padding:16px;color:#9fb0c3;font-size:12px;text-align:center;border-top:1px solid var(--border)}
+</style>
+</head>
+<body>
+<header>
+  <div class="title">Edurius — Clickable Lo-fi v0 (15 screens, English-only)</div>
+  <div class="navbtns">
+    <button id="prev">Prev</button>
+    <button id="next">Next</button>
+  </div>
+</header>
+<div class="wrap">
+  <aside>
+    <h3>Screens</h3>
+    <ul>
+      <li data-target="landing">Landing</li>
+      <li data-target="pricing">Pricing</li>
+      <li data-target="checkout">Checkout (Stripe)</li>
+      <li data-target="onb1">Onboarding — Profile</li>
+      <li data-target="onb2">Onboarding — Consents</li>
+      <li data-target="dashboard">Parent Dashboard</li>
+      <li data-target="seats">Seats / Invite</li>
+      <li data-target="invite">Invite Accept (Student)</li>
+      <li data-target="schools">School List</li>
+      <li data-target="gap">Funding Gap Summary</li>
+      <li data-target="report">Report (Web)</li>
+      <li data-target="app_basic">Application / Renewal — Basic</li>
+      <li data-target="app_plus">Application / Renewal — Plus</li>
+      <li data-target="app_pro">Application / Renewal — Pro</li>
+      <li data-target="limits">Account Limits</li>
+    </ul>
+  </aside>
+  <main>
+    <section id="landing" class="screen">
+      <h2>Landing</h2>
+      <div class="hero">
+        <h1>Cut the guesswork in college finances</h1>
+        <p>Estimate costs, size your funding gap, compare options, and get applications & renewals done on time.</p>
+        <div class="cta-row">
+          <button class="primary">Get Started</button>
+          <button class="secondary">See Pricing</button>
+        </div>
+      </div>
+      <div class="three-cols">
+        <div class="card"><h3>Compare costs</h3><p>School-by-school totals with taxes & fees assumptions.</p></div>
+        <div class="card"><h3>Funding gap</h3><p>Ability-to-pay vs. expected cost with rule-based options.</p></div>
+        <div class="card"><h3>Application & renewal</h3><p>Smart checklists, templates, and reminders.</p></div>
+      </div>
+      <div class="note">
+        <p><strong>Refund:</strong> Full refund within 7 days if no PDF report has been downloaded.</p>
+        <p><strong>Device limit:</strong> Up to 3 simultaneous devices per account.</p>
+      </div>
+    </section>
+
+    <section id="pricing" class="screen">
+      <h2>Pricing</h2>
+      <div class="grid-3">
+        <div class="plan">
+          <h2>Basic</h2><div class="price">$199/year</div>
+          <ul>
+            <li>3 reports/year</li>
+            <li>Compare up to <strong>3 schools</strong></li>
+            <li>Risk Score; Standard 10-yr repayment</li>
+            <li><strong>Application & renewal (core)</strong>: deadlines, alerts (email/SMS opt-in), smart checklist, save/resume, light auto-fill</li>
+            <li>Email support (48h)</li>
+          </ul>
+          <button class="primary">Choose Basic</button>
+        </div>
+        <div class="plan featured">
+          <div class="promo">First 100 Plus families get 1 Expert Review free</div>
+          <h2>Plus</h2><div class="price">$299/year</div>
+          <ul>
+            <li>12 reports/year; compare up to <strong>5 schools</strong></li>
+            <li>Scenario history; Graduated repayment</li>
+            <li><strong>Application & renewal (enhanced)</strong>: doc templates, pre-fill where available, guided annual renewal</li>
+            <li>Priority support (24h)</li>
+          </ul>
+          <div class="note">Overflow: +3 extra report downloads</div>
+          <button class="primary">Choose Plus</button>
+        </div>
+        <div class="plan">
+          <h2>Pro</h2><div class="price">$399/year</div>
+          <ul>
+            <li>Unlimited reports; policy/interest alerts; IDR options</li>
+            <li><strong>Compare</strong> <em>unlimited schools</em></li>
+            <li><strong>Includes 1 credit</strong>: Expert Review OR Application Assist</li>
+            <li><strong>Application & renewal (max)</strong>: pre-submit checklist review + concierge assist</li>
+            <li>Guest read-only link; same-day support</li>
+          </ul>
+          <button class="primary">Choose Pro</button>
+        </div>
+      </div>
+      <div class="addons">
+        <p><strong>Add-ons:</strong> Extra seat $129/year · Application Assist $99/each · Expert Review $149/each</p>
+      </div>
+    </section>
+
+    <section id="checkout" class="screen">
+      <h2>Checkout (Stripe)</h2>
+      <div class="form two">
+        <div class="field"><label>Plan</label><input value="Plus (Annual)" /></div>
+        <div class="field"><label>Account email</label><input placeholder="you@example.com" /></div>
+        <div class="field span2"><label>Card</label><div class="stripe">[Stripe card element]</div></div>
+        <div class="field"><label>Promo code</label><input placeholder="Optional" /></div>
+        <div class="note small"><p>By paying you agree to the Terms, Privacy, and Refund policy.</p></div>
+        <div class="actions"><button class="primary">Pay</button></div>
+      </div>
+      <div class="aside">
+        <h4>Refund gate</h4>
+        <p>Full refund within 7 days if no PDF report has been downloaded.</p>
+      </div>
+    </section>
+
+    <section id="onb1" class="screen">
+      <h2>Onboarding — Profile</h2>
+      <div class="form two">
+        <div class="field"><label>Role</label><select><option>Parent</option><option>Student</option></select></div>
+        <div class="field"><label>Household income ($)</label><input type="number" min="0" /></div>
+        <div class="field"><label>Ability-to-pay per year ($)</label><input type="number" min="0" /></div>
+        <div class="field"><label>Student DOB</label><input placeholder="MM-DD-YYYY" /></div>
+        <div class="field"><label>Graduation year</label><input placeholder="YYYY" /></div>
+        <div class="actions"><button class="primary">Continue</button></div>
+      </div>
+    </section>
+
+    <section id="onb2" class="screen">
+      <h2>Onboarding — Consents</h2>
+      <div class="checklist">
+        <label><input type="checkbox"> This service provides <strong>educational, non-fiduciary guidance</strong> (not individualized financial, legal, tax, investment, or lending advice).</label>
+        <label><input type="checkbox"> For users under 18, <strong>I am the parent/guardian and give consent</strong> to generate reports.</label>
+        <label><input type="checkbox"> <strong>Household-only seats</strong>: I will not share with non-household members.</label>
+        <label><input type="checkbox"> I understand the <strong>device limit of 3 simultaneous devices</strong>.</label>
+      </div>
+      <div class="actions"><button class="primary">Finish</button></div>
+    </section>
+
+    <section id="dashboard" class="screen">
+      <h2>Parent Dashboard</h2>
+      <div class="tiles">
+        <div class="tile"><h3>Seats</h3><p>2 / 2 used</p></div>
+        <div class="tile"><h3>Schools</h3><p>3 added</p></div>
+        <div class="tile"><h3>Funding Gap</h3><p>Ready</p></div>
+        <div class="tile"><h3>Reports</h3><p>2 of 12 used</p></div>
+      </div>
+      <div class="alerts">
+        <div class="alert info">Plus promo: 1 Expert Review credit remains.</div>
+        <div class="alert neutral">Deadlines: FAFSA 12/31 (state priority 03/01).</div>
+      </div>
+    </section>
+
+    <section id="seats" class="screen">
+      <h2>Seats / Invite</h2>
+      <div class="list">
+        <div class="row"><span>Parent (you)</span><span>Active</span></div>
+        <div class="row"><span>Student — invited</span><span>Pending</span></div>
+      </div>
+      <div class="actions"><button class="primary">Invite Student</button> <button class="secondary">Add seat $129</button></div>
+      <div class="note small">Household-only seats. Invites expire in 72 hours.</div>
+    </section>
+
+    <section id="invite" class="screen">
+      <h2>Invite Accept (Student)</h2>
+      <div class="form two">
+        <div class="field"><label>Set password</label><input type="password" /></div>
+        <div class="field"><label>Confirm DOB</label><input placeholder="MM-DD-YYYY" /></div>
+        <div class="consents">
+          <label><input type="checkbox"> I accept household seat and consent terms.</label>
+        </div>
+        <div class="actions"><button class="primary">Join household</button> <button class="ghost">Resend invite</button></div>
+      </div>
+    </section>
+
+    <section id="schools" class="screen">
+      <h2>School List</h2>
+      <div class="toolbar">
+        <button class="primary">+ Add school</button>
+        <span class="muted">Top-10 picker • Data pull status • <em>Plan caps: Basic 3 / Plus 5 / Pro ∞</em></span>
+      </div>
+      <table class="table">
+        <thead><tr><th>School</th><th>Annual Cost (est.)</th><th>Status</th><th></th></tr></thead>
+        <tbody>
+          <tr><td>ABC University</td><td>$48,200</td><td>Ready</td><td><button class="secondary">Compare</button></td></tr>
+          <tr><td>Westlake College</td><td>$39,800</td><td>Pulling…</td><td></td></tr>
+          <tr><td>State U</td><td>$31,400</td><td>Ready</td><td><button class="secondary">Compare</button></td></tr>
+        </tbody>
+      </table>
+    </section>
+
+    <section id="gap" class="screen">
+      <h2>Funding Gap Summary</h2>
+      <div class="viz">
+        <div class="bar">
+          <div class="bar-left">Ability-to-Pay: $40,000</div>
+          <div class="bar-right">Annual Cost: $48,200</div>
+        </div>
+      </div>
+      <div class="gap">$8,200 gap</div>
+      <div class="options">
+        <ul>
+          <li>Grants/Aid eligibility ranges</li>
+          <li>Scholarship fit signals</li>
+          <li>Federal loans & work-study</li>
+        </ul>
+      </div>
+      <div class="actions"><button class="primary">Generate report</button></div>
+    </section>
+
+    <section id="report" class="screen">
+      <h2>Report (Web)</h2>
+      <div class="tabs">
+        <button class="tab active">Summary</button>
+        <button class="tab">Scenarios</button>
+        <button class="tab">Risk</button>
+        <button class="tab">Actions</button>
+      </div>
+      <div class="panel">
+        <p>Summary: family ability-to-pay, cost assumptions, funding gap, and recommended path (A→B).</p>
+        <div class="actions">
+          <button class="primary">Download PDF</button>
+          <button class="secondary">Request Expert Review</button>
+        </div>
+      </div>
+    </section>
+
+    <section id="app_basic" class="screen">
+      <h2>Application / Renewal — Basic</h2>
+      <h3>Core assistance</h3>
+      <ul class="checklist">
+        <li><input type="checkbox"> Track deadlines (FAFSA, state, school)</li>
+        <li><input type="checkbox"> Smart checklist</li>
+        <li><input type="checkbox"> Save & resume</li>
+        <li><input type="checkbox"> Light auto-fill from saved profile</li>
+      </ul>
+      <div class="actions"><button class="secondary">Mark complete</button></div>
+    </section>
+
+    <section id="app_plus" class="screen">
+      <h2>Application / Renewal — Plus</h2>
+      <h3>Enhanced assistance</h3>
+      <ul class="checklist">
+        <li><input type="checkbox"> Document templates (essays, proofs)</li>
+        <li><input type="checkbox"> Pre-fill where available</li>
+        <li><input type="checkbox"> Guided annual renewal (pull last year; confirm changes)</li>
+      </ul>
+      <div class="actions"><button class="secondary">Generate docs</button></div>
+    </section>
+
+    <section id="app_pro" class="screen">
+      <h2>Application / Renewal — Pro</h2>
+      <h3>Max assistance</h3>
+      <ul class="checklist">
+        <li><input type="checkbox"> Pre-submit checklist review</li>
+        <li><input type="checkbox"> Concierge assist (schedule)</li>
+      </ul>
+      <div class="actions">
+        <button class="secondary">Request Assist</button>
+      </div>
+    </section>
+
+    <section id="limits" class="screen">
+      <h2>Account Limits</h2>
+      <div class="meters">
+        <div class="meter"><label>Seats</label><div class="bar"><span style="width:66%"></span></div><small>2 / 3 used</small></div>
+        <div class="meter"><label>Reports bonus</label><div class="bar"><span style="width:33%"></span></div><small>1 / 3 left</small></div>
+        <div class="meter"><label>Expert Review credit</label><div class="bar"><span style="width:50%"></span></div><small>1 / 2 left</small></div>
+      </div>
+      <div class="actions">
+        <button class="primary">Upgrade plan</button>
+        <button class="secondary">Add seat</button>
+        <button class="secondary">Buy Expert Review</button>
+        <button class="secondary">Buy Application Assist</button>
+      </div>
+    </section>
+  </main>
+</div>
+<footer>Non-fiduciary, educational outputs only. For official submissions use the school/program portals.</footer>
+<script>
+const screens = Array.from(document.querySelectorAll('.screen'));
+const navItems = Array.from(document.querySelectorAll('aside li'));
+let index = 0;
+function show(i){
+  index = Math.max(0, Math.min(screens.length-1, i));
+  screens.forEach((s,idx)=>s.classList.toggle('active', idx===index));
+  navItems.forEach((li,idx)=>li.classList.toggle('active', idx===index));
+  window.scrollTo({top:0,behavior:'smooth'});
+}
+navItems.forEach((li,idx)=>li.addEventListener('click',()=>show(idx)));
+document.getElementById('prev').addEventListener('click',()=>show(index-1));
+document.getElementById('next').addEventListener('click',()=>show(index+1));
+const hash = location.hash.replace('#','');
+const map = screens.map(s=>s.id);
+if(hash){
+  const pos = map.indexOf(hash);
+  if(pos>=0){ show(pos); } else { show(0); }
+} else {
+  show(0);
+}
+</script>
+</body>
+</html>
